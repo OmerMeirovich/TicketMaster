@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="filterAction" method-signature="java.lang.String action()"/>
+        <cc:attribute name="browserName" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <details>
+            <summary>Filter search:</summary>
+            <h:form id="searchFilterForm"> 
+                <h:outputText id="errorMessage" style="color: red" value="#{ErrorMessage.text}" />
+                <div>Ticket name:</div><h:inputText id="filterTicketName" alt="Ticket name" label="Ticket name" value="#{SearchFilter.name}">
+                </h:inputText>
+                
+                <div>filter location:</div><h:inputText id="filterTicketLocation" alt="keyWord name" label="keyWord name" value="#{SearchFilter.location}"/>
+                
+                <div>Min price:</div><h:inputText id="filterMinPrice" value="#{SearchFilter.minPrice}"  converterMessage="Please enter digits only."/>
+                <h:message id="filterMinPriceMSG" for = "filterMinPrice" style = "color:red" />
+                
+                <div>Max price:</div><h:inputText id="filterMaxPrice" value="#{SearchFilter.maxPrice}" converterMessage="Please enter digits only."/>
+                <h:message id="filterMaxPriceMSG" for = "filterMaxPrice" style = "color:red" />
+                
+                <div>From date:</div><h:inputText id="filterFromDate" value="#{SearchFilter.fromDate}" converterMessage="Please enter the format yyyy-mm-dd">  
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                </h:inputText>
+                <h:message id="filterFromDateMSG" for = "filterFromDate" style = "color:red" />
+                
+                <div>To date:</div><h:inputText id="filterToDate" value="#{SearchFilter.toDate}" converterMessage="Please enter the format yyyy-mm-dd">  
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                </h:inputText>
+                <h:message id="filterToDateMSG" for = "filterToDate" style = "color:red" />
+                
+                <h:selectOneMenu id="filterType" value="#{SearchFilter.type}">
+                    <f:selectItem itemValue="-1" itemLabel="choose type" />
+                    <f:selectItems value="#{TicketTypesBean.types}" var="type" itemValue="#{type.ID}" itemLabel="#{type.NAME}" />
+                </h:selectOneMenu>
+                
+                <h:commandButton value="Filter" action="#{cc.attrs.filterAction}">
+                    <f:ajax execute="filterTicketName filterTicketLocation filterMinPrice filterMaxPrice filterFromDate filterToDate filterType"
+                            render="filterTicketName filterTicketLocation filterMaxPriceMSG filterMinPriceMSG filterFromDateMSG filterToDateMSG filterMinPrice filterMaxPrice filterFromDate filterToDate filterType #{cc.attrs.browserName} errorMessage"/>
+                </h:commandButton>
+
+            </h:form>
+        </details>
+    </cc:implementation>
+</html>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Ticket Payment</title>
+        <h:outputStylesheet name="design.css" />
+        <script type="text/javascript">
+            window.onload = function () {
+            var minutes = 10;
+            var seconds = 0;
+            var timer = setInterval(function () {
+            var timerText = document.getElementById("timer");
+            if (seconds &lt; 10) {
+            timerText.innerHTML = minutes + ":" + "0" + seconds;
+            } else {
+            timerText.innerHTML = minutes + ":" + seconds;
+            }
+            if (seconds &gt; 0) {
+            seconds--;
+            } else if (minutes &gt; 0) {
+            minutes--;
+            seconds = 59;
+            } else {
+            clearInterval(timer);
+            timerText.innerHTML = "00:00";
+            }
+            }, 1000);
+            };
+        </script>
+    </h:head>
+    <h:body>
+        #{ticket_payment.onPageLoad()}
+        <div class="container" style="margin: 40px auto;">
+            <div style="display: flex;flex-direction: column;justify-content: center;align-content: center;align-items: center;border-style: inset">
+                <h3>Your ticket is reserved for 10 minutes</h3>
+                <p id="timer" 
+                   style="font-size: larger;">10:00</p>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Ticket Payment</h1>
+            <h2>Existing Payment Methods</h2>
+            <h:dataTable value="#{ticket_payment.paymentMethod}" var="payment">
+                <h:column>
+                    <f:facet name="header">CARD NUMBER</f:facet>
+                    #{payment.getCARD_NUMBER()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">EXP DATE</f:facet>
+                    #{payment.getEX_DATE()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CVV</f:facet>
+                    #{payment.getCVV()}
+                </h:column>
+                <h:column>
+                        <h:form>
+                            <h:commandButton value="Use this card" action="#{ticket_payment.payWithExistingMethod}">
+                                <f:param name="existingPmTicketId" value="#{payment.getID()}" />
+                            </h:commandButton>
+                        </h:form>
+                </h:column>
+            </h:dataTable>
+            
+            <br/>
+            <h2>Add New Payment Method</h2>
+            <h:messages>
+
+            </h:messages>
+            <h:form>
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <h:inputText id="cardNumber" value="#{ticket_payment.cardNumber}" required="false"/>
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Expiration Date(MM/YY)</label>
+                    <h:inputText id="expDate" value="#{ticket_payment.expDate}" required="false" title="MM/YY" />
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">CVV</label>
+                    <h:inputText id="cvv"  value="#{ticket_payment.cvv}" required="false"/>
+                </div>
+                <div class="" style="display:flex;justify-content: center;">
+                    <div style="background-color: #80b3ff; display: inline-flex;padding:5px;">
+                        <h:outputLabel value="Price of ticket: "></h:outputLabel>
+                        <h:outputLabel value="#{ticket_payment.getTicketPrice()}"></h:outputLabel>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:commandButton value="PAY" action="#{ticket_payment.payWithNewMethod()}"/>
+                </div>               
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="BACK" action="#{main.redirectToLastPage()}">
+                </h:commandButton>
+            </h:form>
+        </div>
+
+
+    </h:body>
+</html>
+
+

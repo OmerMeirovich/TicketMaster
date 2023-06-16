@@ -1,0 +1,51 @@
+-- Inserting user data
+INSERT INTO users (email, password, remember_token, payment_id)
+VALUES 
+  ('user1@example.com', 'password1', 'token1', 1),
+  ('user2@example.com', 'password2', 'token2', 2),
+  ('user3@example.com', 'password3', 'token3', 3),
+  ('user4@example.com', 'password4', 'token4', 4),
+  ('user5@example.com', 'password5', 'token5', 5);
+
+-- Inserting payment data
+INSERT INTO payment (card_number, exp_date, cvv)
+VALUES 
+  ('1234567890123456', '12/24', '123'),
+  ('2345678901234567', '11/23', '234'),
+  ('3456789012345678', '10/22', '345'),
+  ('4567890123456789', '09/21', '456'),
+  ('5678901234567890', '08/20', '567');
+
+-- Inserting ticket type data
+INSERT INTO ticket_type (name)
+VALUES 
+  ('Concert'), 
+  ('Sports'), 
+  ('Theater'), 
+  ('Comedy');
+
+-- Inserting ticket data
+INSERT INTO ticket (type_id, name, location, seller_id, price, date_of_ticket)
+VALUES 
+  (1, 'Concert 1', 'Venue 1', 1, 100, '2023-06-01'),
+  (2, 'Sports 1', 'Venue 2', 2, 50, '2023-06-02'),
+  (3, 'Theater 1', 'Venue 3', 3, 75, '2023-06-03'),
+  (1, 'Concert 2', 'Venue 4', 4, 150, '2023-06-04'),
+  (2, 'Sports 2', 'Venue 5', 5, 80, '2023-06-05'),
+  (3, 'Theater 2', 'Venue 6', 1, 90, '2023-06-06'),
+  (1, 'Concert 3', 'Venue 7', 2, 120, '2023-06-07'),
+  (2, 'Sports 3', 'Venue 8', 3, 70, '2023-06-08'),
+  (3, 'Theater 3', 'Venue 9', 4, 100, '2023-06-09'),
+  (1, 'Concert 4', 'Venue 10', 5, 200, '2023-06-10'),
+  (1, 'Concert 5', 'Venue 11', 1, 90, '2023-06-11'),
+  (2, 'Sports 4', 'Venue 12', 2, 70, '2023-06-12'),
+  (3, 'Theater 4', 'Venue 13', 3, 120, '2023-06-13'),
+  (1, 'Concert 6', 'Venue 14', 4, 180, '2023-06-14'),
+  (2, 'Sports 5', 'Venue 15', 5, 100, '2023-06-15'),
+  (3, 'Theater 5', 'Venue 16', 1, 110, '2023-06-16');
+
+INSERT INTO favorite_tickets (user_id, ticket_id)
+VALUES (1, 2), (1, 4), (1, 6), (2, 1), (2, 3), (3, 5), (3, 7), (3, 9), (4, 2), (4, 8);
+
+INSERT INTO reserved_tickets (user_id, ticket_id)
+VALUES (1, 1), (2, 3), (3, 5), (4, 7), (5, 9);

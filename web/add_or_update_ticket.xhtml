@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{add_or_update_ticket.buttonValue} ticket</title>
+        <h:outputStylesheet  name="design.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1>
+                #{add_or_update_ticket.buttonValue} ticket page
+            </h1>
+            <h:messages>
+               
+            </h:messages>
+            <h:form>
+                <div class="form-group">
+                    <h:outputLabel value="Type: " />
+                    <h:selectOneMenu id="Type" value="#{add_or_update_ticket.ticketType}" required="true">
+                        <f:selectItems value="#{TicketTypesBean.types}" var="type" itemValue="#{type.ID}" itemLabel="#{type.NAME}" />
+                    </h:selectOneMenu>
+                </div>   
+                <div class="form-group">
+                    <h:outputLabel value="Name: " for="ticketName"/>
+                    <h:inputText id="ticketName" value="#{add_or_update_ticket.ticketName}" required="false"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Location: " for="ticketLocation"/>
+                    <h:inputText id="ticketLocation" value="#{add_or_update_ticket.ticketLocation}"  required="false"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Date: (YYYY-MM-DD)" for="ticketDate" />
+                    <h:inputText id="ticketDate" value="#{add_or_update_ticket.ticketDate}" title="YYYY-MM-DD" converterMessage="Please enter the format yyyy-mm-dd correctly" required="true">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Price: " for="ticketPrice"/>
+                    <h:inputText id="ticketPrice"  required="fasle" value="#{add_or_update_ticket.TPrice}"  converterMessage="Please enter digits only."/>
+                </div>
+                <div class="form-group">
+                    <h:commandButton value="#{add_or_update_ticket.buttonValue}" action="#{add_or_update_ticket.executeTicketToDB}"/>
+                </div>
+            </h:form>
+            <h:form>
+                <div class="form-group">
+                    <h:commandButton value="Home Page" action="#{add_or_update_ticket.redirectToHome}"/>
+                </div>
+            </h:form>
+        </div>    
+    </h:body>
+</html>
+

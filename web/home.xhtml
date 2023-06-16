@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TicketMaster</title>
+        <h:outputStylesheet  name="design.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1>
+                Home Page
+            </h1>
+            <h:messages>
+               
+            </h:messages>
+            <h:form>
+                <div class="form-group" style="display:flex;">
+                    <h:commandButton value="Buying Tickets" action="#{home.redirectToBuyingTickets}" />
+
+                    <h:commandButton value="Selling Tickets" action="#{home.redirectToSellingTickets}" />
+                </div>
+                <div class="form-group" style="display:flex;">
+                    <h:commandButton value="Favorites" action="#{home.redirectToFavorites}" />
+
+                    <h:commandButton value="Ticket Purchased" action="#{home.redirectToHistory}" />
+                </div>
+                <div class="form-group" style="display:flex;">
+                    <h:commandButton value="Logout" action="#{home.logout()}" />
+                </div>
+            </h:form>
+        </div>    
+    </h:body>
+</html>
+

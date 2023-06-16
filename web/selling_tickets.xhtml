@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+    <h:head>
+        <title>Tickets Put On Sale</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="design.css" />
+    </h:head>
+    <body>
+        <div class="container">
+            <h1>Tickets Put On Sale</h1>
+            #{sellingTicket.onPageLoad()}
+            <table  >
+                <tr style="
+                    display: flex;
+                    justify-content: space-around;
+                    ">
+                    <td >
+                        <h:form>
+                            <h:commandButton value="Sell a new ticket" action="#{sellingTicket.sellTicket()}">
+                            </h:commandButton>
+                        </h:form>
+                    </td>
+                    <td >
+                        <h:form>
+                            <h:commandButton value="View sold tickets" action="#{sellingTicket.redirectToSold() }">
+                            </h:commandButton>
+                        </h:form>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <ez:filterBox browserName="ticketBrowserForm" filterAction="#{sellingTicket.filteredSearch()}" ></ez:filterBox>
+            <h:form id="ticketBrowserForm">
+                <h:dataTable id="ticketBrowser" value="#{sellingTicket.ticketList}" var="ticketWithExtra">
+                    <h:column>
+                        <f:facet name="header"> Name </f:facet>
+                            #{ticketWithExtra.NAME}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Type </f:facet>
+                            #{ticketWithExtra.TYPE_NAME}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Location </f:facet>
+                            #{ticketWithExtra.LOCATION}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Date </f:facet>
+                            #{ticketWithExtra.DATE_OF_TICKET}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Price </f:facet>
+                            #{ticketWithExtra.PRICE}
+                    </h:column>
+                    <h:column>
+                        <div class="td-buttons">
+                            <h:commandButton value="update Ticket" action="#{sellingTicket.updateTicket()}" actionListener="#{sellingTicket.attributeListener}">
+                                <f:attribute name="ticketId" value="#{ticketWithExtra.getID()}" />
+                            </h:commandButton>
+                            <h:commandButton value="Delete Ticket" action="#{sellingTicket.deleteTicket()}" actionListener="#{sellingTicket.attributeListener}">
+                                <f:attribute name="ticketId" value="#{ticketWithExtra.getID()}" />
+                            </h:commandButton>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+            <h:form>
+                <h:commandButton value="BACK TO HOME" action="#{main.redirectToHomePage()}">
+                </h:commandButton>
+            </h:form>
+        </div>
+    </body>
+</html>
